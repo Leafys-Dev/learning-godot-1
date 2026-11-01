@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://duyqvlp8qg3fi" path="res://scripts/green_slime.gd" id="1_tuic5"]
 [ext_resource type="Texture2D" uid="uid://b2dhyd5wnk0dv" path="res://assets/sprites/slime_green.png" id="2_0pvn7"]
-[ext_resource type="Shader" uid="uid://cfyde665ynewl" path="res://shaders/hit_flash.gdshader" id="2_boo2g"]
+[ext_resource type="Shader" uid="uid://bkx55ord82tcn" path="res://shaders/hit_flash_visual.tres" id="2_boo2g"]
 [ext_resource type="PackedScene" uid="uid://dkybj141hhpye" path="res://scenes/killzone.tscn" id="3_0pvn7"]
 [ext_resource type="PackedScene" uid="uid://bnwhkqvnqluk5" path="res://scenes/enemy_hit_zone.tscn" id="4_4q1e0"]
+[ext_resource type="AudioStream" uid="uid://djfajfc5wvb5m" path="res://assets/sounds/hurt.wav" id="6_kq38r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4q1e0"]
 resource_local_to_scene = true
@@ -329,10 +330,10 @@ script = ExtResource("1_tuic5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1017516676]
 material = SubResource("ShaderMaterial_4q1e0")
-position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_xrivr")
 animation = &"death"
 autoplay = "walking"
+offset = Vector2(0, -12)
 
 [node name="Enemy Hit Zone" parent="." unique_id=1100414768 instance=ExtResource("4_4q1e0")]
 position = Vector2(-16, -10)
@@ -360,5 +361,9 @@ target_position = Vector2(-10, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=605790170]
 libraries/ = SubResource("AnimationLibrary_kq38r")
+
+[node name="Hurt Sound" type="AudioStreamPlayer2D" parent="." unique_id=631442634]
+stream = ExtResource("6_kq38r")
+bus = &"VFX"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

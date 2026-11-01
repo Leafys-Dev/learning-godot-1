@@ -151,6 +151,30 @@ Plugins are always part of the Options Menu when relevant (e.g. Beehave, LimboAI
 - Separate facts, best practices, and opinions clearly.
 - If something works but is "bad practice", don't call it wrong. Say it works and explain the cost.
 
-# START
+# MY PROGRESS & SKILLS CHECKLIST (WHAT I HAVE ALREADY LEARNED)
 
-Begin by asking me 3 short questions: (1) what kind of game I want to make (2D/3D/genre), (2) what I already know in Godot, if anything, (3) how many hours a week I can practice. Then propose a small beginner roadmap and our first mini-task, using the Options Menu format for any decision we face.
+Do NOT re- ask the 3 introductory questions if I am continuing my learning journey in a new conversation—check this section first to see where I am!
+
+## Dream Goal
+- I want to make a **2D Platformer** game, and I am building small projects along the way to master Godot 4.7.2 fundamentals independently.
+
+## Project 1: 2D Platformer (Brackeys Tutorial + Custom Stomp/Shader Extensions) — COMPLETED
+Located in the root folders (`scenes/`, `scripts/`, `assets/`, `shaders/`).
+What I learned and built in Project 1:
+- **2D Coordinates & Math:** Why `-Y` is UP and `+Y` is DOWN in 2D screens; `velocity` (`x` and `y`); why `delta` equalizes speed across different computer frame rates; why `move_and_slide()` includes `delta` automatically while manual `position.x += direction * speed * delta` needs `* delta`.
+- **Nodes & Scenes:** `CharacterBody2D` (Player), `StaticBody2D`, `AnimatableBody2D` (Moving platforms + one-way collision), `Area2D` (Coins, Killzone, and custom Enemy Stomp Hit Zone), `RayCast2D` (wall detection for patrolling slime), `Camera2D` (`process_callback = Physics` to prevent smoothing jitter, limits), `Timer` (`one_shot`, `wait_time`), `AudioStreamPlayer2D` + custom Audio Buses (`BGM`, `VFX`).
+- **Level Building (Godot 4.7.2):** Using `TileMapLayer` (instead of deprecated `TileMap`), external `TileSet` resources (`world_tileset.tres`), physics layers on tiles, draw order (scene tree order & `z_index`), separating `Background` and `Midground` `TileMapLayer` nodes.
+- **Physics Layers & Masks:** "Layer = What I am, Mask = What I scan for"; naming layers (`World`, `Player`) in Project Settings; why modifying collision shapes inside `_on_body_entered` causes the `"flushing queries"` error and how `call_deferred()` fixes it.
+- **Animations & State Machines:**
+  - `AnimatedSprite2D` (`SpriteFrames`, `flip_h`, `offset` for foot-pivot scaling so squashed sprites don't float).
+  - `AnimationPlayer` (keyframing properties, disabling collision shapes, Call Method tracks calling `queue_free()`, `RESET` track).
+  - Comparing 4 ways to handle enemy states: `await` (and the trap of putting `await` in `_process` or overlapping hits), `AnimatedSprite2D` signals, `AnimationPlayer` timelines, and **`enum State { WALKING, HURT, DEATH }` + `match current_state`** (which I implemented on `green_slime.gd`).
+- **Tweens ("Game Juice"):** `create_tween()`, `tween_property()`, `set_parallel()`, `chain()`, and `tween_callback()` to create instant-snap hit-flash and squash-and-stretch (`scale = Vector2(1.4, 0.6)`).
+- **Shaders (2D):** Built both a text `.gdshader` (`shader_type canvas_item;`, `uniform float flash_amount`, `fragment()`, `texture(TEXTURE, UV)`, `mix()` on RGB channels while preserving `.a` alpha) and a `VisualShader` (`hit_flash_visual.tres`), plus `resource_local_to_scene = true` on `ShaderMaterial` so each enemy instance flashes independently. (I prefer text `.gdshader` and GDScript code over visual node graphs.)
+
+## Project 2 (CURRENT NEXT STEP): "Coin Dash / Dodge the Creeps" (Top-Down 2D Arcade Mini-Game)
+What I am learning next in Project 2:
+- **8-Directional Top-Down Movement & Vector Normalization (`Input.get_vector()`, `.normalized()`, Pythagorean theorem math so diagonal movement isn't faster).**
+- **Spawning Scenes from Code (`PackedScene`, `preload()`, `.instantiate()`, `add_child()`, random positions with `randf_range()`).**
+- **Custom Signals (`signal`) & Decoupled UI (`CanvasLayer`, `Control` nodes, `Button`, Start / Playing / Game Over game loop).**
+- **Screen / Arena Boundaries (`clamp()`).**

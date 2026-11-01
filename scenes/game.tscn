@@ -197,3 +197,6 @@ horizontal_alignment = 1
 
 [node name="Green Slime" parent="." unique_id=1686180015 instance=ExtResource("2_p57ef")]
 position = Vector2(536, 80)
+
+[node name="Green Slime2" parent="." unique_id=1061276598 instance=ExtResource("2_p57ef")]
+position = Vector2(585, 80)

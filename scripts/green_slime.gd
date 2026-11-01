@@ -18,7 +18,7 @@ var direction = RIGHT
 
 @onready var enemy_hit_zone: Area2D = $"Enemy Hit Zone"
 @onready var killzone: Area2D = $Killzone
-
+@onready var hurt_sound: AudioStreamPlayer2D = $"Hurt Sound"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -44,6 +44,7 @@ func on_hit():
 	
 	
 	if hp > 0:
+		hurt_sound.play()
 		current_state = State.HURT
 		tween_hit_effect()
 		
@@ -58,7 +59,7 @@ func tween_hit_effect():
 	
 	var tween = create_tween()
 	tween.set_parallel()
-	tween.tween_property(animated_sprite, "material:shader_parameter/flash_amount", 0, 0.2)
+	tween.tween_property(animated_sprite, "material:shader_parameter/flash_amount", 0.0, 0.2)
 	tween.tween_property(animated_sprite, "scale", Vector2(1, 1), 0.2)
 	
 	# Callback State.WALKING
