@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bnwhkqvnqluk5"]
+
+[ext_resource type="Script" uid="uid://yujj61oc2hmb" path="res://scripts/enemy_hit_zone.gd" id="1_7bbvs"]
+
+[node name="Enemy Hit Zone" type="Area2D" unique_id=1100414768]
+collision_mask = 2
+script = ExtResource("1_7bbvs")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
