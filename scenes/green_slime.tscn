@@ -2,8 +2,14 @@
 
 [ext_resource type="Script" uid="uid://duyqvlp8qg3fi" path="res://scripts/green_slime.gd" id="1_tuic5"]
 [ext_resource type="Texture2D" uid="uid://b2dhyd5wnk0dv" path="res://assets/sprites/slime_green.png" id="2_0pvn7"]
+[ext_resource type="Shader" uid="uid://cfyde665ynewl" path="res://shaders/hit_flash.gdshader" id="2_boo2g"]
 [ext_resource type="PackedScene" uid="uid://dkybj141hhpye" path="res://scenes/killzone.tscn" id="3_0pvn7"]
 [ext_resource type="PackedScene" uid="uid://bnwhkqvnqluk5" path="res://scenes/enemy_hit_zone.tscn" id="4_4q1e0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4q1e0"]
+resource_local_to_scene = true
+shader = ExtResource("2_boo2g")
+shader_parameter/flash_amount = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4q1p6"]
 atlas = ExtResource("2_0pvn7")
@@ -322,6 +328,7 @@ z_index = 5
 script = ExtResource("1_tuic5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1017516676]
+material = SubResource("ShaderMaterial_4q1e0")
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_xrivr")
 animation = &"death"

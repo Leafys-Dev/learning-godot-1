@@ -42,13 +42,27 @@ func _process(delta: float) -> void:
 func on_hit():
 	hp -= 1
 	
+	
 	if hp > 0:
 		current_state = State.HURT
-		animation_player.call_deferred("play", "hurt")
+		tween_hit_effect()
+		
 	elif hp == 0: 
 		animation_player.call_deferred("play", "death")	
 		current_state = State.DEATH
 
+# Hit flash and squash effect
+func tween_hit_effect():
+	animated_sprite.material.set_shader_parameter("flash_amount", 0.5)
+	animated_sprite.scale = Vector2(1.4, 0.6)
+	
+	var tween = create_tween()
+	tween.set_parallel()
+	tween.tween_property(animated_sprite, "material:shader_parameter/flash_amount", 0, 0.2)
+	tween.tween_property(animated_sprite, "scale", Vector2(1, 1), 0.2)
+	
+	# Callback State.WALKING
+	tween.chain().tween_callback(func(): current_state = State.WALKING)
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "hurt":
